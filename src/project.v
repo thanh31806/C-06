@@ -1,4 +1,4 @@
-module c06_core (
+module tt_um_thanh31806_c06 (
     input  logic       clk,
     input  logic       rst_n,
     input  logic [7:0] sample_in,
