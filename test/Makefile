@@ -42,4 +42,12 @@ TOPLEVEL = tb
 #COCOTB_TEST_MODULES = test
 
 # include cocotb's make rules to take care of the simulator setup
-include $(shell cocotb-config --makefiles)/Makefile.sim
+#include $(shell cocotb-config --makefiles)/Makefile.sim
+# --- Chạy trực tiếp bằng Icarus Verilog (không dùng cocotb) ---
+all:
+	mkdir -p $(SIM_BUILD)
+	iverilog -o $(SIM_BUILD)/sim.vvp -s $(TOPLEVEL) -g2012 $(COMPILE_ARGS) $(VERILOG_SOURCES)
+	vvp $(SIM_BUILD)/sim.vvp
+
+clean:
+	rm -rf $(SIM_BUILD)
