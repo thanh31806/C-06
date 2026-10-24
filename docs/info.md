@@ -1,20 +1,11 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
 
 ## How it works
-
-Explain how your project works
+ 
+Thiết kế này là một khối phần cứng số hoạt động như một bộ giám sát tín hiệu. Nó nhận vào một dòng dữ liệu 8 bit(sample) và 1 giá trị ngưỡng 8 bit (thresh hold).Mạch chia dòng thành các cửa sổ có độ dài 256 chu kì clock. Trong mỗi cửa sổ mạch đếm số lượng mẫu có giá trị lớn hơn ngưỡng. Khi kết thúc(đủ 256 chu kì ) kết quả chốt vào thanh ghi và một xung báo hiệu phát ra trong đúng 1 chu kì. Sau đó mạch bắt đầu cửa sổ mới mà không có chu kì nghỉ
 
 ## How to test
-
-Explain how to use your project
-
-## External hardware
-
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Testbench kiểm tra các trường hợp biên quan trọng:
+- Sự kiện rơi đúng vào chu kì 1,255,256
+- Trường hợp mẫu bằng ngưỡng
+- Tất cả mẫu đều vượt ngưỡng
+- Kiểm tra cửa sổ mới bắt đầu khi cửa sổ cũ kết thúc
