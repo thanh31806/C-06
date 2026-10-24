@@ -72,7 +72,4 @@ module tb;
         $finish;
     end
 endmodule
-        $display("Testbench finished.");
-        $finish;
-    end
-endmodule
+   
