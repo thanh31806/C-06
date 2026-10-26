@@ -17,12 +17,11 @@ module tt_um_thanh31806_c06 (
     reg [8:0] result_count;
     reg       window_done;
 
-    wire event_now  = (sample_in > threshold);
-    wire terminal   = (window_count == 8'd255);
-    wire [8:0] next_event_count = event_count + {{8{1'b0}}, event_now};
+    wire event_now = (sample_in > threshold);
+    wire window_full = (window_count == 8'd255);
 
     always_ff @(posedge clk) begin
-        if (!rst_n) begin
+        if (!rst_n || !ena) begin
             window_count <= 8'd0;
             event_count  <= 9'd0;
             result_count <= 9'd0;
@@ -30,16 +29,14 @@ module tt_um_thanh31806_c06 (
         end else begin
             window_done <= 1'b0;
 
-            if (terminal) begin
-                // Kết thúc window, lưu số event ở window này
-                result_count <= next_event_count;
-                event_count  <= 9'd0;
+            if (window_full) begin
+                event_count <= event_count + {{8{1'b0}}, event_now};
+                result_count <= event_count + {{8{1'b0}}, event_now};
                 window_count <= 8'd0;
                 window_done  <= 1'b1;
             end else begin
-                // Tăng window và tích lũy sự kiện
+                event_count <= event_count + {{8{1'b0}}, event_now};
                 window_count <= window_count + 8'd1;
-                event_count  <= next_event_count;
             end
         end
     end
