@@ -58,6 +58,11 @@ module tb;
         end else begin
             $display("PASS: CA 1 (Ket qua = 3)");
         end
+                // Reset mạch trước khi chạy Ca 2
+        rst_n = 0;
+        repeat(2) @(posedge clk);
+        rst_n = 1;
+        #1;
 
         // CA 2: Tất cả đều vượt ngưỡng (Kết quả 256)
         for (int i=1; i<=256; i++) apply_cycle(8'd101, 8'd100);
